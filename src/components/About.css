@@ -1,0 +1,126 @@
+/* ═══════════════════════════════════════════
+   ABOUT — GreenX Style
+   ═══════════════════════════════════════════ */
+.about-section {
+  padding: 8rem 2.5rem;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.about-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* ── Left Content ── */
+.about-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+
+.about-divider {
+  height: 1px;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  transform-origin: left;
+}
+
+.about-desc {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+/* ── Right 3D Image ── */
+.about-right {
+  perspective: 1200px; /* Crucial for 3D effect */
+  display: flex;
+  justify-content: center;
+}
+
+.about-image-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 24px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: var(--bg-card);
+  padding: 1rem;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transform-style: preserve-3d;
+}
+
+.about-img {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  display: block;
+  object-fit: cover;
+}
+
+/* Floating element that pops out in 3D */
+.about-float-card {
+  position: absolute;
+  bottom: 2rem;
+  left: -2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  pointer-events: none; /* Let mouse interact with the image behind */
+}
+
+.float-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2997FF;
+  box-shadow: 0 0 10px rgba(41, 151, 255, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    gap: 4rem;
+  }
+  .about-right {
+    order: -1; /* Image on top for mobile */
+  }
+  .about-float-card {
+    left: 1rem;
+    bottom: 1rem;
+  }
+}
+@media (max-width: 640px) {
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
+  .about-container {
+    gap: 3rem;
+  }
+  .about-headline {
+    font-size: 2rem;
+  }
+}

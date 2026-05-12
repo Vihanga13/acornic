@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ═══════════════════════════════════════════
+   ACORNIC VENTURES — DESIGN SYSTEM (LIGHT)
+   ═══════════════════════════════════════════ */
+:root {
+  /* Palette (Acornic White Theme) */
+  --bg:            #FFFFFF;
+  --bg-2:          #F5F5F7;
+  --bg-card:       #FFFFFF;
+  --bg-card-2:     #F5F5F7;
+
+  --navy:          #1D1D1F;
+  --navy-80:       rgba(29,29,31,0.80);
+  --navy-40:       rgba(29,29,31,0.40);
+  --navy-12:       rgba(29,29,31,0.12);
+  --navy-06:       rgba(29,29,31,0.06);
+
+  --green:         #0066CC; /* Switch accent to an Apple-like blue or keep green? User asked for white color theme. A premium VC site often uses dark navy or subtle blue. Let's use a subtle dark accent. */
+  --green-light:   #2997FF;
+  --green-glow:    rgba(0,102,204,0.18);
+
+  --gold:          #C9860A;
+  --gold-light:    #F4B942;
+  --gold-glow:     rgba(201,134,10,0.2);
+
+  --violet:        #5B3FC8;
+  --violet-light:  #7B5EE8;
+  --violet-glow:   rgba(91,63,200,0.18);
+
+  --coral:         #D4503A;
+  --coral-glow:    rgba(212,80,58,0.15);
+
+  --text-primary:  #1D1D1F;
+  --text-body:     #86868B;
+  --text-muted:    #A1A1A6;
+  --border:        rgba(0,0,0,0.08);
+  --border-strong: rgba(0,0,0,0.15);
+
+  /* Typography */
+  --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-body:    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Radius */
+  --r-sm:  8px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  40px;
+
+  /* Shadows */
+  --shadow-xs:  0 1px 4px rgba(14,31,61,0.06);
+  --shadow-sm:  0 4px 16px rgba(14,31,61,0.08);
+  --shadow-md:  0 12px 40px rgba(14,31,61,0.10);
+  --shadow-lg:  0 24px 80px rgba(14,31,61,0.12);
+  --shadow-xl:  0 40px 120px rgba(14,31,61,0.15);
+
+  /* 3D Perspective */
+  --perspective: 1200px;
+  --transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+html, body, #root { width:100%; min-height:100%; }
+.App { width:100%; min-height:100vh; background:var(--bg); }
+a { text-decoration:none; color:inherit; }
+button { font-family: var(--font-body); cursor:pointer; border:none; }
+img { max-width:100%; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width:5px; }
+::-webkit-scrollbar-track { background:var(--bg-2); }
+::-webkit-scrollbar-thumb { background:var(--navy-40); border-radius:3px; }
+
+/* Shared Utilities */
+.section-badge {
+  display: inline-flex; align-items:center; gap:8px;
+  padding: 5px 14px;
+  background: rgba(0,0,0,0.04);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.72rem; font-weight:600;
+  color: var(--text-primary);
+  letter-spacing: 0.1em; text-transform:uppercase;
+  margin-bottom: 1rem;
+}
+.badge-dot {
+  width:6px; height:6px; border-radius:50%;
+  background: var(--green);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem,4vw,3rem);
+  font-weight:600; line-height:1.12;
+  letter-spacing:-0.01em;
+  color: var(--text-primary);
+}
+
+.section-title .accent-green {
+  color: var(--navy);
+}
+.section-title .accent-navy {
+  color: var(--navy);
+}
+
+.section-subtitle {
+  font-size:1rem; color:var(--text-body);
+  line-height:1.75; max-width:520px;
+}
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #1D1D1F 0%, #434345 100%);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+/* Pill button base */
+.btn {
+  display:inline-flex; align-items:center; gap:8px;
+  padding:0.8rem 2rem;
+  font-family:var(--font-display);
+  font-size:0.88rem; font-weight:600;
+  border-radius:50px; transition:var(--transition);
+  letter-spacing:0.01em; white-space:nowrap;
+}
+.btn-primary {
+  background: #1D1D1F;
+  color:#FFFFFF;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+.btn-primary:hover {
+  background: #434345;
+  color:#FFFFFF;
+  transform:translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+.btn-outline {
+  background: transparent;
+  color: #1D1D1F;
+  border: 1px solid var(--border-strong);
+}
+.btn-outline:hover {
+  background: rgba(0,0,0,0.03);
+  border-color: #1D1D1F;
+  transform:translateY(-2px);
+}
+.btn-green {
+  background: #1D1D1F;
+  color:#FFFFFF;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+}
+.btn-green:hover {
+  background: #434345;
+  transform:translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* 3D Utilities */
+.perspective-container {
+  perspective: var(--perspective);
+  transform-style: preserve-3d;
+}
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}

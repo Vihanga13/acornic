@@ -1,0 +1,121 @@
+/* ═══════════════════════════════════════════
+   SERVICES — GreenX Style
+   ═══════════════════════════════════════════ */
+.services-section {
+  padding: 8rem 2.5rem;
+  background: var(--bg-2);
+  overflow: hidden;
+}
+
+.services-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* ── Left Content ── */
+.services-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.services-desc {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--text-body);
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 90%;
+}
+
+/* ── Right Cards ── */
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.service-card {
+  display: flex;
+  align-items: center;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.5rem 2rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+}
+
+.service-card:hover {
+  background: #FFFFFF;
+  transform: translateX(-10px);
+  border-color: #2997FF;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.service-id {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2997FF;
+  margin-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-content {
+  flex: 1;
+}
+
+.service-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.service-desc-small {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  line-height: 1.4;
+}
+
+.service-arrow {
+  color: var(--text-muted);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.service-card:hover .service-arrow {
+  color: #2997FF;
+  transform: translateX(5px);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .services-container {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+@media (max-width: 640px) {
+  .services-section {
+    padding: 4rem 1.5rem;
+  }
+  .service-card {
+    padding: 1.25rem 1.5rem;
+  }
+  .service-title {
+    font-size: 1.1rem;
+  }
+}
