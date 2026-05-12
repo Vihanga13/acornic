@@ -8,7 +8,7 @@
   --font-body: 'Exo 2', sans-serif;
 }
 
-/* ── BOTTOM NAVBAR ── */
+/* ── NAVBAR ── */
 .navbar {
   position: fixed;
   bottom: 0;
@@ -16,51 +16,96 @@
   right: 0;
   top: auto;
   z-index: 1000;
-  height: 160px;
+  height: 200px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   background: transparent;
   overflow: visible;
   pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-/* ── ARC SURFACE — curves upward like a planet horizon ── */
-.nav-arc-bg {
-  position: absolute;
-  top: 0;
-  left: -10%;
-  width: 120%;
-  height: 220px;
-  background: radial-gradient(ellipse 80% 55% at 50% 0%,
-    rgba(10, 28, 10, 0.97) 0%,
-    rgba(5, 18, 5, 0.90) 45%,
-    rgba(2, 10, 2, 0.6) 72%,
-    transparent 100%
-  );
-  border-radius: 0 0 50% 50% / 0 0 30% 30%;
+/* Hide navbar on hero section */
+.navbar.hidden-hero {
+  opacity: 0;
   pointer-events: none;
 }
 
-/* Green rim glow line — now on the TOP of the arc */
+/* Hide navbar while scrolling */
+.navbar.hidden-scroll {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Show navbar when not scrolling */
+.navbar.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── HORIZONTAL GLOWING LINE ── */
+.navbar::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(57,255,20,0.1) 5%,
+    rgba(57,255,20,0.4) 20%,
+    rgba(57,255,20,0.9) 50%,
+    rgba(57,255,20,0.4) 80%,
+    rgba(57,255,20,0.1) 95%,
+    transparent 100%
+  );
+  box-shadow: 0 0 20px rgba(57,255,20,0.5), 0 0 40px rgba(57,255,20,0.2);
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.navbar.hidden-hero::before,
+.navbar.hidden-scroll::before {
+  opacity: 0;
+}
+
+/* ── ARC SURFACE ── */
+.nav-arc-bg {
+  position: absolute;
+  top: 50%;
+  left: -10%;
+  width: 120%;
+  height: 120px;
+  background: radial-gradient(ellipse 75% 100% at 50% 100%,
+    rgba(10, 28, 10, 0.6) 0%,
+    transparent 100%
+  );
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+  transform: translateY(-1px);
+  transition: opacity 0.3s ease;
+}
+
+.navbar.hidden-hero .nav-arc-bg,
+.navbar.hidden-scroll .nav-arc-bg {
+  opacity: 0;
+}
+
+/* Green rim glow line — removed (now using navbar::before) */
 .nav-arc-bg::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 5%;
   right: 5%;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0%,
-    rgba(57,255,20,0.08) 8%,
-    rgba(57,255,20,0.5) 32%,
-    rgba(57,255,20,0.95) 50%,
-    rgba(57,255,20,0.5) 68%,
-    rgba(57,255,20,0.08) 92%,
-    transparent 100%
-  );
+  height: 0;
+  background: transparent;
   border-radius: 50%;
-  filter: blur(0.8px);
+  filter: blur(0px);
 }
 
 /* Atmospheric glow BELOW the rim */
@@ -71,11 +116,8 @@
   left: 10%;
   right: 10%;
   height: 44px;
-  background: radial-gradient(ellipse 70% 100% at 50% 0%,
-    rgba(57,255,20,0.16) 0%,
-    transparent 100%
-  );
-  filter: blur(10px);
+  background: transparent;
+  filter: blur(0px);
 }
 
 /* ── CONTAINER ── */
@@ -89,7 +131,10 @@
   padding: 0 2rem;
   pointer-events: auto;
 }
-
+.navbar.hidden-hero .nav-container,
+.navbar.hidden-scroll .nav-container {
+  pointer-events: none;
+}
 /* ── LOGO ── */
 .nav-logo {
   position: absolute;
@@ -124,17 +169,24 @@
   text-shadow: 0 0 8px var(--green-glow);
 }
 
-/* ── NAV LINKS — centered, arc upward ── */
+/* ── NAV LINKS — horizontal along line ── */
 .nav-links {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   position: absolute;
   left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  gap: 0;
-  padding-top: 4px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  gap: 2rem;
+  padding: 0;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.navbar.hidden-hero .nav-links,
+.navbar.hidden-scroll .nav-links {
+  pointer-events: none;
 }
 
 .nav-item-wrapper {
@@ -142,11 +194,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* arc vertical offset applied via inline style — negative = upward */
+  gap: 0.8rem;
 }
+
+/* Items scale based on distance from center */
+.nav-item-wrapper:nth-child(1) { transform: scale(0.75); }
+.nav-item-wrapper:nth-child(2) { transform: scale(0.85); }
+.nav-item-wrapper:nth-child(3) { transform: scale(0.95); }
+.nav-item-wrapper:nth-child(4) { transform: scale(1.2); }
+.nav-item-wrapper:nth-child(5) { transform: scale(0.95); }
+.nav-item-wrapper:nth-child(6) { transform: scale(0.85); }
+.nav-item-wrapper:nth-child(7) { transform: scale(0.75); }
 
 /* ── CIRCLE ── */
 .nav-link {
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background: radial-gradient(circle at 36% 32%,
     rgba(45, 65, 40, 0.9) 0%,
@@ -170,7 +233,7 @@
 .nav-link:hover {
   border-color: rgba(57,255,20,0.65);
   color: var(--green);
-  transform: translateY(-5px) scale(1.07);
+  transform: scale(1.12);
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,0.06),
     inset 0 0 22px rgba(57,255,20,0.13),
@@ -179,11 +242,13 @@
     0 0 50px rgba(57,255,20,0.08);
 }
 .nav-link.active {
+  width: 120px;
+  height: 120px;
   border-color: rgba(57,255,20,0.98);
-  border-width: 2px;
+  border-width: 3px;
   color: var(--green);
   background: radial-gradient(circle at 36% 30%,
-    rgba(110, 220, 60, 0.28) 0%,
+    rgba(110, 220, 60, 0.4) 0%,
     rgba(35, 90, 20, 0.88) 30%,
     rgba(10, 32, 10, 1) 65%,
     rgba(4, 12, 4, 1) 100%
@@ -192,9 +257,9 @@
     inset 0 2px 0 rgba(255,255,255,0.09),
     inset 0 0 32px rgba(57,255,20,0.32),
     0 -8px 28px rgba(0,0,0,0.75),
-    0 0 35px rgba(57,255,20,0.6),
-    0 0 80px rgba(57,255,20,0.28),
-    0 0 130px rgba(57,255,20,0.1);
+    0 0 45px rgba(57,255,20,0.8),
+    0 0 100px rgba(57,255,20,0.4),
+    0 0 150px rgba(57,255,20,0.15);
 }
 .nav-link.contact-active {
   border-color: rgba(57,255,20,0.88);
@@ -239,7 +304,7 @@
   transform: scale(1.1) translateY(-1px);
 }
 
-/* ── LABEL — sits BELOW the circle (above ground line) ── */
+/* ── LABEL — positioned below ── */
 .nav-label {
   font-family: var(--font-body);
   font-size: 0.64rem;
@@ -249,8 +314,6 @@
   text-align: center;
   white-space: nowrap;
   margin-top: 5px;
-  padding-bottom: 4px;
-  order: 2;
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 .nav-item-wrapper:hover .nav-label {
@@ -260,20 +323,16 @@
 .nav-item-wrapper.active-item .nav-label {
   color: var(--green);
   font-weight: 600;
+  font-size: 0.74rem;
   text-shadow: 0 0 12px var(--green-glow);
 }
-.nav-item-wrapper.contact-item .nav-label {
-  color: var(--green);
-  font-weight: 500;
-  text-shadow: 0 0 9px rgba(57,255,20,0.6);
-}
 
-/* ── SUBMENU — pops UPWARD from bottom nav ── */
+/* ── SUBMENU — pops UPWARD ── */
 .submenu {
   position: absolute;
-  bottom: calc(100% + 10px);
+  top: -60px;
   left: 50%;
-  transform: translateX(-50%) translateY(6px);
+  transform: translateX(-50%) translateY(-10px);
   background: rgba(4, 13, 4, 0.97);
   border: 1px solid rgba(57,255,20,0.2);
   border-radius: 12px;

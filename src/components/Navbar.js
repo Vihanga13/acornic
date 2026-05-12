@@ -155,17 +155,41 @@ const Navbar = () => {
   const [scrolled,    setScrolled]  = useState(false);
   const [mobileOpen,  setMobile]    = useState(false);
   const [activeIdx,   setActive]    = useState(3); // default Opticore
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [onHero, setOnHero] = useState(true);
+  let scrollTimeout;
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const onScroll = () => {
+      // Check if on hero section (within first 100vh)
+      const heroHeight = window.innerHeight;
+      const isHeroSection = window.scrollY < heroHeight;
+      setOnHero(isHeroSection);
+      
+      // Show navbar scrolled state when past hero
+      setScrolled(window.scrollY > 50);
+      
+      // Hide navbar while scrolling
+      setIsScrolling(true);
+      clearTimeout(scrollTimeout);
+      
+      // Show navbar after scrolling stops (500ms)
+      scrollTimeout = setTimeout(() => {
+        setIsScrolling(false);
+      }, 500);
+    };
+    
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      clearTimeout(scrollTimeout);
+    };
   }, []);
 
   const GREEN = '#39ff14';
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''} ${onHero && !scrolled ? 'hidden-hero' : ''} ${isScrolling ? 'hidden-scroll' : 'visible'}`}>
       {/* Arc surface */}
       <div className="nav-arc-bg" />
 
