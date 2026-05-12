@@ -8,12 +8,6 @@ const NAV_LINKS = [
   {
     label: 'About',
     href: '#about',
-    submenu: [
-      { label: 'Insights & Vision', href: '#vision' },
-      { label: 'Our Philosophy', href: '#philosophy' },
-      { label: 'Our Team', href: '#team' },
-      { label: 'Our Partners', href: '#partners' },
-    ],
   },
   { label: 'Platform', href: '#services' },
   { label: 'Portfolio', href: '#portfolio' },

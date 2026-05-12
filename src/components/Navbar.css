@@ -68,12 +68,12 @@
 .nav-logo-img {
   height: 180px;
   width: auto;
-  transition: transform 0.4s var(--ease-spring);
-  filter: brightness(0) invert(0); /* keeps original color */
+  transition: transform 0.4s var(--ease-spring), filter 0.4s ease;
+  filter: invert(1); /* white in hero section */
 }
 
 .navbar.scrolled .nav-logo-img {
-  filter: none;
+  filter: brightness(0); /* black when scrolled */
 }
 
 .nav-logo:hover .nav-logo-img {
